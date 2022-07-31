@@ -11,7 +11,7 @@ export function getItem({
   userId: User["id"];
 }) {
   return prisma.trackItem.findFirst({
-    select: { id: true, name: true, category: true },
+    select: { id: true, name: true, category: true, timelineEvents: true },
     where: { id, userId },
   });
 }
@@ -48,7 +48,7 @@ export function deleteItem({
   id,
   userId,
 }: Pick<TrackItem, "id"> & { userId: User["id"] }) {
-  return prisma.note.deleteMany({
+  return prisma.trackItem.deleteMany({
     where: { id, userId },
   });
 }

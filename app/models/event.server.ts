@@ -7,14 +7,12 @@ export type { TimelineEvent } from "@prisma/client";
 
 
 export function createEvent({
-  description,
   timestamp,
   notes,
   trackItemId,
-}: Pick<TimelineEvent, "description" | "timestamp" | "notes" | "trackItemId">) {
+}: Pick<TimelineEvent, "timestamp" | "notes" | "trackItemId">) {
   return prisma.timelineEvent.create({
     data: {
-      description,
       timestamp,
       notes,
       trackItem: {
@@ -26,3 +24,10 @@ export function createEvent({
   });
 }
 
+export function deleteEvent({
+  id,
+}: Pick<TimelineEvent, "id"> & { userId: User["id"] }) {
+  return prisma.timelineEvent.delete({
+    where: { id },
+  });
+}
